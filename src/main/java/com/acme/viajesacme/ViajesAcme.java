@@ -12,7 +12,11 @@
  import com.acme.viajesacme.avion.domain.service.AvionService;
  import com.acme.viajesacme.avion.infrastructure.in.AvionController;
  import com.acme.viajesacme.avion.infrastructure.out.AvionRepository;
- import com.acme.viajesacme.vuelo.application.CreateVueloUseCase;
+import com.acme.viajesacme.persona.application.ClienteUseCase;
+import com.acme.viajesacme.persona.domain.service.ClienteService;
+import com.acme.viajesacme.persona.infrastructure.in.ClienteController;
+import com.acme.viajesacme.persona.infrastructure.out.ClienteRepository;
+import com.acme.viajesacme.vuelo.application.CreateVueloUseCase;
  import com.acme.viajesacme.vuelo.domain.service.VueloService;
  import com.acme.viajesacme.vuelo.infrastructure.in.VueloController;
  import com.acme.viajesacme.vuelo.infrastructure.out.VueloRepository;
@@ -65,10 +69,27 @@
                          frame.pack();
                      }
                  });
+
+                 // Crear elemento de menu para registro de cliente
+                 JMenuItem menuItemRegistroCliente = new JMenuItem("Registro de Cliente");
+                 menuItemRegistroCliente.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ClienteService clienteService = new ClienteRepository();
+                        ClienteUseCase clienteUseCase  = new ClienteUseCase(clienteService);
+                        frame.getContentPane().removeAll(); // Elimina componentes actuales
+                        frame.getContentPane().add(new ClienteController(clienteUseCase));
+                        frame.revalidate();
+                        frame.repaint();
+                        frame.pack();
+                    }
+                 });
+
  
                  // Agregar elementos de menú al menú
                  menu.add(menuItemRegistroAvion);
                  menu.add(menuItemRegistroVuelo);
+                 menu.add(menuItemRegistroCliente);
  
                  // Agregar menú a la barra de menú
                  menuBar.add(menu);

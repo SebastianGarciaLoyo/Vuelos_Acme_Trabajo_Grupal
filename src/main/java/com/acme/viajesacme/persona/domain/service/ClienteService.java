@@ -14,7 +14,4 @@ import com.acme.viajesacme.persona.domain.entity.Cliente;
  */
 public interface ClienteService {
     void crearCliente(Cliente cliente);
-    Cliente findClientById(Long id);
-    void actualizarCliente(Cliente cliente);
-    void EliminarCliente(Long id);
 }
