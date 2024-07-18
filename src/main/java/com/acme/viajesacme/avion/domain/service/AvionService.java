@@ -4,7 +4,9 @@
  */
 package com.acme.viajesacme.avion.domain.service;
 
+
 import com.acme.viajesacme.avion.domain.entity.Avion;
+
 
 /**
  *
@@ -12,6 +14,8 @@ import com.acme.viajesacme.avion.domain.entity.Avion;
  */
 
  // creando las funciones
-public interface AvionService {
-    void createAvion (Avion avion);
-}
+
+ public interface AvionService {
+     void createAvion(Avion avion);
+ }
+ 

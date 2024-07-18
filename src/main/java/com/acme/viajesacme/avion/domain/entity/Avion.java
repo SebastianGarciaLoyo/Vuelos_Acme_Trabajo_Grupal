@@ -8,20 +8,22 @@ package com.acme.viajesacme.avion.domain.entity;
  *
  * @author camper
  */
+
+
 public class Avion {
     private int placa;
     private int capacidad;
     private int año_fabricacion;
     private int mes_fabricacion;
     private int dia_fabricacion;
-    private String estado;
-    private String aerolinea;
-    private String modelo;
-    
-    public Avion() {
-    
-    }
+    private Estado estado;
+    private Aerolinea aerolinea;
+    private Modelo modelo;
+    private Fabricante fabricante;
 
+    
+
+    // Getters and Setters
     public int getPlaca() {
         return placa;
     }
@@ -62,32 +64,36 @@ public class Avion {
         this.dia_fabricacion = dia_fabricacion;
     }
 
-    public String getEstado() {
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
-    public String getAerolinea() {
+    public Aerolinea getAerolinea() {
         return aerolinea;
     }
 
-    public void setAerolinea(String aerolinea) {
+    public void setAerolinea(Aerolinea aerolinea) {
         this.aerolinea = aerolinea;
     }
 
-    public String getModelo() {
+    public Modelo getModelo() {
         return modelo;
     }
 
-    public void setModelo(String modelo) {
+    public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
 
-    
-   
-    
-    
+    public Fabricante getFabricante() {
+        return fabricante;
+    }
+
+    public void setFabricante(Fabricante fabricante) {
+        this.fabricante = fabricante;
+    }
 }
+
