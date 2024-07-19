@@ -21,19 +21,23 @@ public class AvionController {
 
         while (true) {
             System.out.println("\n" + //
-                                "___  ___                   _   _            _           \n" + //
-                                "|  \\/  |                  | | | |          | |          \n" + //
-                                "| .  . | ___ _ __  _   _  | | | |_   _  ___| | ___  ___ \n" + //
-                                "| |\\/| |/ _ \\ '_ \\| | | | | | | | | | |/ _ \\ |/ _ \\/ __|\n" + //
-                                "| |  | |  __/ | | | |_| | \\ \\_/ / |_| |  __/ | (_) \\__ \\\n" + //
-                                "\\_|  |_/\\___|_| |_|\\__,_|  \\___/ \\__,_|\\___|_|\\___/|___/\n" + //
-                                "                                                        \n" + //
-                                "                                                        \n" + //
+                                "___  ___                    ___        _             \n" + //
+                                "|  \\/  |                   / _ \\      (_)            \n" + //
+                                "| .  . | ___ _ __  _   _  / /_\\ \\_   ___  ___  _ __  \n" + //
+                                "| |\\/| |/ _ \\ '_ \\| | | | |  _  \\ \\ / / |/ _ \\| '_ \\ \n" + //
+                                "| |  | |  __/ | | | |_| | | | | |\\ V /| | (_) | | | |\n" + //
+                                "\\_|  |_/\\___|_| |_|\\__,_| \\_| |_/ \\_/ |_|\\___/|_| |_|\n" + //
+                                "                                                     \n" + //
+                                "                                                     \n" + //
                                 "");
             System.out.println("==============================");
             System.out.println("Seleccione una opción:");
             System.out.println("1. Registro de Avion");
-            System.out.println("2. Salir");
+            System.out.println("2. Actualizar Avion (MANTENIMIENTO)");
+            System.out.println("3. Eliminar Avion (MANTENIMIENTO)");
+            System.out.println("4. Consultar Avion (MANTENIMIENTO)");
+            System.out.println("5. Listar Aviones (MANTENIMIENTO)");
+            System.out.println("6. Volver al menu principal");
             System.out.println("==============================");
 
             int opcion = Integer.parseInt(scanner.nextLine());
@@ -91,9 +95,8 @@ public class AvionController {
                     System.out.println("Avion registrado exitosamente!");
 
                     break;
-                case 2:
-                    System.out.println("Saliendo...");
-                    scanner.close();
+                case 6:
+                    System.out.println("Volviendo al menu principal...");
                     return;
             
                 default:

@@ -4,10 +4,12 @@
  */
 package com.acme.viajesacme.revision.domain.service;
 
+import com.acme.viajesacme.revision.domain.entity.Revision;
+
 /**
  *
  * @author camper
  */
 public interface RevisionService {
-    
+    void crearRevision(Revision revision);
 }

@@ -4,10 +4,12 @@
  */
 package com.acme.viajesacme.trayecto.domain.service;
 
+import com.acme.viajesacme.trayecto.domain.entity.Trayecto;
+
 /**
  *
  * @author camper
  */
 public interface TrayectoService {
-    
+    void crearTrayecto(Trayecto trayecto);
 }
