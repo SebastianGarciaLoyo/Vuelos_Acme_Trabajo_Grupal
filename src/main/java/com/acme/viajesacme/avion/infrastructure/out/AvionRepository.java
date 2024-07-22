@@ -13,7 +13,7 @@ public class AvionRepository implements AvionService {
 
     @Override
     public void createAvion(Avion avion) {
-        String sql = "INSERT INTO avion (placa, capacidad, año_fabricacion, mes_fabricacion, dia_fabricacion, estado, aerolinea, modelo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO aviones (placa, capacidad, fecha_fabricacion, id_estado, id_modelo) VALUES (?,?,?,?,?)";
     
         try (Connection connection = DatabaseConfigAvion.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
@@ -21,12 +21,9 @@ public class AvionRepository implements AvionService {
             // Asignar valores de avion directamente
             statement.setInt(1, avion.getPlaca());
             statement.setInt(2, avion.getCapacidad());
-            statement.setInt(3, avion.getAño_fabricacion());
-            statement.setInt(4, avion.getMes_fabricacion());
-            statement.setInt(5, avion.getDia_fabricacion());
-            statement.setString(6, avion.getEstado());
-            statement.setString(7, avion.getAerolinea());
-            statement.setString(8, avion.getModelo());
+            statement.setString(3, avion.getFecha_fabricacion());
+            statement.setInt(4, avion.getEstado_id());
+            statement.setInt(5, avion.getModelo_id());
     
             int rowsInserted = statement.executeUpdate();
     

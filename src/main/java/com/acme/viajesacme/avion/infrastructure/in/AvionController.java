@@ -1,110 +1,87 @@
 package com.acme.viajesacme.avion.infrastructure.in;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-import javax.swing.*;
-
 import com.acme.viajesacme.avion.application.CreateAvionUseCase;
 import com.acme.viajesacme.avion.domain.entity.Avion;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class AvionController extends JPanel {
+import java.util.Scanner;
+
+public class AvionController {
 
     private CreateAvionUseCase createAvionUseCase;
 
-    private JTextField placaField;
-    private JTextField capacidadField;
-    private JTextField añoFabricacionField;
-    private JTextField mesFabricacionField;
-    private JTextField diaFabricacionField;
-    private JTextField estadoField;
-    private JTextField aerolineaField;
-    private JTextField modeloField;
-
     public AvionController(CreateAvionUseCase createAvionUseCase) {
         this.createAvionUseCase = createAvionUseCase;
+    }
 
-        setLayout(new GridLayout(9, 2));
+    public void menuAvion() {
+        Scanner scanner = new Scanner(System.in);
 
-        JLabel placaLabel = new JLabel("Placa del avion:");
-        placaField = new JTextField(10);
-        add(placaLabel);
-        add(placaField);
+        while (true) {
+            System.out.println("\n" + //
+                                "___  ___                    ___        _             \n" + //
+                                "|  \\/  |                   / _ \\      (_)            \n" + //
+                                "| .  . | ___ _ __  _   _  / /_\\ \\_   ___  ___  _ __  \n" + //
+                                "| |\\/| |/ _ \\ '_ \\| | | | |  _  \\ \\ / / |/ _ \\| '_ \\ \n" + //
+                                "| |  | |  __/ | | | |_| | | | | |\\ V /| | (_) | | | |\n" + //
+                                "\\_|  |_/\\___|_| |_|\\__,_| \\_| |_/ \\_/ |_|\\___/|_| |_|\n" + //
+                                "                                                     \n" + //
+                                "                                                     \n" + //
+                                "");
+            System.out.println("==============================");
+            System.out.println("Seleccione una opción:");
+            System.out.println("1. Registro de Avion");
+            System.out.println("2. Actualizar Avion (MANTENIMIENTO)");
+            System.out.println("3. Eliminar Avion (MANTENIMIENTO)");
+            System.out.println("4. Consultar Avion (MANTENIMIENTO)");
+            System.out.println("5. Listar Aviones (MANTENIMIENTO)");
+            System.out.println("6. Volver al menu principal");
+            System.out.println("==============================");
 
-        JLabel capacidadLabel = new JLabel("Capacidad del avion:");
-        capacidadField = new JTextField(10);
-        add(capacidadLabel);
-        add(capacidadField);
+            int opcion = Integer.parseInt(scanner.nextLine());
 
-        JLabel añoFabricacionLabel = new JLabel("Año de fabricacion:");
-        añoFabricacionField = new JTextField(10);
-        add(añoFabricacionLabel);
-        add(añoFabricacionField);
+            switch (opcion) {
+                case 1:
+                    System.out.print("Placa del avion: ");
+                    int placa = Integer.parseInt(scanner.nextLine());
+                    scanner.nextLine();
+            
+                    System.out.print("Capacidad del avion: ");
+                    int capacidad = Integer.parseInt(scanner.nextLine());
+            
+                    System.out.println("Fecha de fabricacion del avion: ");
+                    String fecha_fabricacion = scanner.nextLine();
+            
+                    System.out.print("Id del estado del avion: ");
+                    int estado_id = Integer.parseInt(scanner.nextLine());
+                    scanner.nextLine();
+            
+                    System.out.print("Id del modelo del avion ");
+                    int modelo_id = Integer.parseInt(scanner.nextLine());
+                    scanner.nextLine();
 
-        JLabel mesFabricacionLabel = new JLabel("Mes de fabricacion:");
-        mesFabricacionField = new JTextField(10);
-        add(mesFabricacionLabel);
-        add(mesFabricacionField);
 
-        JLabel diaFabricacionLabel = new JLabel("Dia de fabricacion:");
-        diaFabricacionField = new JTextField(10);
-        add(diaFabricacionLabel);
-        add(diaFabricacionField);
+                    // Crear objeto Avion
+                    Avion avion = new Avion();
+                    avion.setPlaca(placa);
+                    avion.setCapacidad(capacidad);
+                    avion.setFecha_fabricacion(fecha_fabricacion);
+                    avion.setModelo_id(modelo_id);
+                    avion.setEstado_id(estado_id);
+                    // Ejecutar caso de uso para crear avion
+                    createAvionUseCase.execute(avion);
+            
+                    System.out.println("Avion registrado exitosamente!");
 
-        JLabel estadoLabel = new JLabel("Estado del avion:");
-        estadoField = new JTextField(10);
-        add(estadoLabel);
-        add(estadoField);
-
-        JLabel aerolineaLabel = new JLabel("Aerolinea del avion:");
-        aerolineaField = new JTextField(10);
-        add(aerolineaLabel);
-        add(aerolineaField);
-
-        JLabel modeloLabel = new JLabel("Modelo del avion:");
-        modeloField = new JTextField(10);
-        add(modeloLabel);
-        add(modeloField);
-
-        JButton registrarButton = new JButton("Registrar Avion");
-        registrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Obtener datos ingresados por el usuario
-                int placa = Integer.parseInt(placaField.getText());
-                int capacidad = Integer.parseInt(capacidadField.getText());
-                int añoFabricacion = Integer.parseInt(añoFabricacionField.getText());
-                int mesFabricacion = Integer.parseInt(mesFabricacionField.getText());
-                int diaFabricacion = Integer.parseInt(diaFabricacionField.getText());
-                String estado = estadoField.getText();
-                String aerolinea = aerolineaField.getText();
-                String modelo = modeloField.getText();
-
-                // Crear objeto Avion
-                Avion avion = new Avion();
-                avion.setPlaca(placa);
-                avion.setCapacidad(capacidad);
-                avion.setAño_fabricacion(añoFabricacion);
-                avion.setMes_fabricacion(mesFabricacion);
-                avion.setDia_fabricacion(diaFabricacion);
-                avion.setEstado(estado);
-                avion.setAerolinea(aerolinea);
-                avion.setModelo(modelo);
-
-                // Ejecutar caso de uso para crear avion
-                createAvionUseCase.execute(avion);
-
-                
-
-                JOptionPane.showMessageDialog(null, "Avion registrado exitosamente!");
+                    break;
+                case 6:
+                    System.out.println("Volviendo al menu principal...");
+                    return;
+            
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+                    break;
             }
-        });
-
-        add(registrarButton);
+        }
     }
 }

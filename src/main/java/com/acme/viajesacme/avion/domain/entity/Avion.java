@@ -11,12 +11,9 @@ package com.acme.viajesacme.avion.domain.entity;
 public class Avion {
     private int placa;
     private int capacidad;
-    private int año_fabricacion;
-    private int mes_fabricacion;
-    private int dia_fabricacion;
-    private String estado;
-    private String aerolinea;
-    private String modelo;
+    private String fecha_fabricacion;
+    private int modelo_id;
+    private int estado_id;
     
     public Avion() {
     
@@ -38,53 +35,30 @@ public class Avion {
         this.capacidad = capacidad;
     }
 
-    public int getAño_fabricacion() {
-        return año_fabricacion;
+    public String getFecha_fabricacion() {
+        return fecha_fabricacion;
     }
 
-    public void setAño_fabricacion(int año_fabricacion) {
-        this.año_fabricacion = año_fabricacion;
+    public void setFecha_fabricacion(String fecha_fabricacion) {
+        this.fecha_fabricacion = fecha_fabricacion;
     }
 
-    public int getMes_fabricacion() {
-        return mes_fabricacion;
+    public int getModelo_id() {
+        return modelo_id;
     }
 
-    public void setMes_fabricacion(int mes_fabricacion) {
-        this.mes_fabricacion = mes_fabricacion;
+    public void setModelo_id(int modelo_id) {
+        this.modelo_id = modelo_id;
     }
 
-    public int getDia_fabricacion() {
-        return dia_fabricacion;
+    public int getEstado_id() {
+        return estado_id;
     }
 
-    public void setDia_fabricacion(int dia_fabricacion) {
-        this.dia_fabricacion = dia_fabricacion;
+    public void setEstado_id(int estado_id) {
+        this.estado_id = estado_id;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getAerolinea() {
-        return aerolinea;
-    }
-
-    public void setAerolinea(String aerolinea) {
-        this.aerolinea = aerolinea;
-    }
-
-    public String getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
 
     
    
