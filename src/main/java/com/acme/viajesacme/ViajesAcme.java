@@ -6,9 +6,21 @@ import com.acme.viajesacme.aeropuerto.application.CreateAeropuertoUseCase;
 import com.acme.viajesacme.aeropuerto.domain.service.AeropuertoService;
 import com.acme.viajesacme.aeropuerto.infrastructure.in.AeropuertoController;
 import com.acme.viajesacme.aeropuerto.infrastructure.out.AeropuertoRepository;
-import com.acme.viajesacme.avion.application.CreateAvionUseCase;
-import com.acme.viajesacme.avion.domain.service.AvionService;
+import com.acme.viajesacme.avion.application.ExistePlacasExtraccion;
+import com.acme.viajesacme.avion.application.ExtraerRegistroAccion;
+import com.acme.viajesacme.avion.application.RecordAvionAccion;
+import com.acme.viajesacme.avion.application.VerEstadoInfoAccion;
+import com.acme.viajesacme.avion.application.VerModeloInfoAccion;
+import com.acme.viajesacme.avion.domain.service.AvionRecordService;
+import com.acme.viajesacme.avion.domain.service.ExtraerRegistroService;
+import com.acme.viajesacme.avion.domain.service.PlacasExtraccionService;
+import com.acme.viajesacme.avion.domain.service.VerInfoService;
 import com.acme.viajesacme.avion.infrastructure.in.AvionController;
+import com.acme.viajesacme.avion.infrastructure.in.ExtraerEstadoAvionRepository;
+import com.acme.viajesacme.avion.infrastructure.in.ExtraerModelosAvionRepository;
+import com.acme.viajesacme.avion.infrastructure.in.ExtraerPlacasRepository;
+import com.acme.viajesacme.avion.infrastructure.in.VerInfoEstadoRepository;
+import com.acme.viajesacme.avion.infrastructure.in.VerInfoModeloRepository;
 import com.acme.viajesacme.avion.infrastructure.out.AvionRepository;
 import com.acme.viajesacme.revision.application.CreateRevisionUseCase;
 import com.acme.viajesacme.revision.domain.service.RevisionService;
@@ -49,9 +61,19 @@ public class ViajesAcme {
 
             switch (opcion) {
                 case 1:
-                    AvionService avionService = new AvionRepository();
-                    CreateAvionUseCase createAvionUseCase = new CreateAvionUseCase(avionService);
-                    AvionController avionController = new AvionController(createAvionUseCase);
+                    PlacasExtraccionService placasExtraccionService = new ExtraerPlacasRepository();
+                    ExistePlacasExtraccion existePlacasExtraccion = new ExistePlacasExtraccion(placasExtraccionService);
+                    VerInfoService extractInfoModelService = new VerInfoModeloRepository();
+                    VerModeloInfoAccion verModeloInfoAccion = new VerModeloInfoAccion(extractInfoModelService);
+                    ExtraerRegistroService extractInfoModel = new ExtraerModelosAvionRepository();
+                    ExtraerRegistroAccion extractInfoModelAction = new ExtraerRegistroAccion(extractInfoModel);
+                    VerInfoService extractInfoStatusService = new VerInfoEstadoRepository();
+                    VerEstadoInfoAccion verEstadoInfoAccion = new VerEstadoInfoAccion(extractInfoStatusService);
+                    ExtraerRegistroService extractInfoStatus = new ExtraerEstadoAvionRepository();
+                    ExtraerRegistroAccion extractInfoStatusAction = new ExtraerRegistroAccion(extractInfoStatus);
+                    AvionRecordService avionRecordService = new AvionRepository();
+                    RecordAvionAccion recordAvionAccion = new RecordAvionAccion(avionRecordService);
+                    AvionController avionController = new AvionController(existePlacasExtraccion, verModeloInfoAccion, extractInfoModelAction, verEstadoInfoAccion, extractInfoStatusAction, recordAvionAccion);
                     avionController.menuAvion();
                     break;
 

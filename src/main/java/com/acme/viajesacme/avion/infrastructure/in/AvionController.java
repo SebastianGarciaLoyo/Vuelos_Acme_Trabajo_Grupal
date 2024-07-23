@@ -1,19 +1,42 @@
 package com.acme.viajesacme.avion.infrastructure.in;
 
-import com.acme.viajesacme.avion.application.CreateAvionUseCase;
+import com.acme.viajesacme.avion.application.ExistePlacasExtraccion;
+import com.acme.viajesacme.avion.application.ExtraerRegistroAccion;
+import com.acme.viajesacme.avion.application.RecordAvionAccion;
+import com.acme.viajesacme.avion.application.VerEstadoInfoAccion;
+import com.acme.viajesacme.avion.application.VerModeloInfoAccion;
 import com.acme.viajesacme.avion.domain.entity.Avion;
-import com.acme.viajesacme.avion.domain.entity.Estado;
-import com.acme.viajesacme.avion.domain.entity.Aerolinea;
-import com.acme.viajesacme.avion.domain.entity.Modelo;
+import com.acme.viajesacme.avion.application.verifiers.CheckDate;
+import com.acme.viajesacme.avion.application.verifiers.CheckString;
+import com.acme.viajesacme.avion.application.verifiers.CheckInt;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
 public class AvionController {
 
-    private CreateAvionUseCase createAvionUseCase;
+    private ExistePlacasExtraccion existePlacasExtraccion;
+    private VerModeloInfoAccion verModeloInfoAccion;
+    private ExtraerRegistroAccion extractRegisterModelsAction;
+    private VerEstadoInfoAccion verEstadoInfoAccion;
+    private ExtraerRegistroAccion extractRegisterStatusAction;
+    private RecordAvionAccion recordAvionAccion;
 
-    public AvionController(CreateAvionUseCase createAvionUseCase) {
-        this.createAvionUseCase = createAvionUseCase;
+    public AvionController(
+                           ExistePlacasExtraccion existePlacasExtraccion,
+                           VerModeloInfoAccion verModeloInfoAccion,
+                           ExtraerRegistroAccion extractRegisterModelsAction,
+                           VerEstadoInfoAccion verEstadoInfoAccion,
+                           ExtraerRegistroAccion extractRegisterStatusAction,
+                           RecordAvionAccion recordAvionAccion) {
+        this.existePlacasExtraccion = existePlacasExtraccion;
+        this.verModeloInfoAccion = verModeloInfoAccion;
+        this.extractRegisterModelsAction = extractRegisterModelsAction;
+        this.verEstadoInfoAccion = verEstadoInfoAccion;
+        this.extractRegisterStatusAction = extractRegisterStatusAction;
+        this.recordAvionAccion = recordAvionAccion;
     }
 
     public void menuAvion() {
@@ -40,69 +63,151 @@ public class AvionController {
             System.out.println("6. Volver al menu principal");
             System.out.println("==============================");
 
-            int opcion = Integer.parseInt(scanner.nextLine());
+            int opcion = CheckInt.check(scanner.nextLine());
 
             switch (opcion) {
                 case 1:
-                    System.out.print("Placa del avion: ");
-                    int placa = Integer.parseInt(scanner.nextLine());
-            
-                    System.out.print("Capacidad del avion: ");
-                    int capacidad = Integer.parseInt(scanner.nextLine());
-            
-                    System.out.print("Año de fabricacion: ");
-                    int añoFabricacion = Integer.parseInt(scanner.nextLine());
-            
-                    System.out.print("Mes de fabricacion: ");
-                    int mesFabricacion = Integer.parseInt(scanner.nextLine());
-            
-                    System.out.print("Dia de fabricacion: ");
-                    int diaFabricacion = Integer.parseInt(scanner.nextLine());
-            
-                    System.out.print("Estado del avion: ");
-                    String estadoNombre = scanner.nextLine();
-            
-                    System.out.print("Aerolinea del avion: ");
-                    String aerolineaNombre = scanner.nextLine();
-            
-                    System.out.print("Modelo del avion: ");
-                    String modeloNombre = scanner.nextLine();
-
-                    // Crear objetos Estado, Aerolinea, y Modelo
-                    Estado estado = new Estado();
-                    estado.setEstado(estadoNombre);
-                    
-                    Aerolinea aerolinea = new Aerolinea();
-                    aerolinea.setAerolinea(aerolineaNombre);
-                    
-                    Modelo modelo = new Modelo();
-                    modelo.setModelo(modeloNombre);
-
-                    // Crear objeto Avion
-                    Avion avion = new Avion();
-                    avion.setPlaca(placa);
-                    avion.setCapacidad(capacidad);
-                    avion.setAño_fabricacion(añoFabricacion);
-                    avion.setMes_fabricacion(mesFabricacion);
-                    avion.setDia_fabricacion(diaFabricacion);
-                    avion.setEstado(estado);
-                    avion.setAerolinea(aerolinea);
-                    avion.setModelo(modelo);
-            
-                    // Ejecutar caso de uso para crear avion
-                    createAvionUseCase.execute(avion);
-            
-                    System.out.println("Avion registrado exitosamente!");
-
+                    registrarAvion(scanner);
                     break;
                 case 6:
                     System.out.println("Volviendo al menu principal...");
+                    scanner.close(); // Cerrar el escáner cuando se sale del menú
                     return;
-            
                 default:
                     System.out.println("Opción no válida. Intente de nuevo.");
                     break;
             }
         }
     }
-}
+
+    private void registrarAvion(Scanner scanner) {
+        List<String> listRegisteredPlates = this.existePlacasExtraccion.executeExtract();
+        ResultSet infoModels = this.extractRegisterModelsAction.extraerInfo();
+        ResultSet infoStatus = this.extractRegisterStatusAction.extraerInfo();
+        
+        boolean checkPlaca = false;
+        String placa = "";
+        
+        // Registro de la placa
+        while (!checkPlaca) {
+            System.out.println("======================");
+            System.out.print("Placa del avion: ");
+            System.out.println("\n======================");
+            System.out.println("\nEscriba EXIT o exit para cancelar el registro");
+            try {
+                placa = CheckString.check(scanner.nextLine());
+                if (placa.equalsIgnoreCase("exit")) {
+                    System.out.println("Registro cancelado");
+                    return;
+                }
+    
+                if (listRegisteredPlates.contains(placa)) {
+                    System.out.println("Esta placa ya se encuentra registrada.");
+                } else {
+                    checkPlaca = true;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    
+        // Registro de la capacidad
+        int capacidad = 0;
+        boolean checkCapacidad = false;
+        while (!checkCapacidad) {
+            System.out.println("======================");
+            System.out.print("Capacidad del avion: ");
+            System.out.println("\n======================");
+            System.out.println("\nEscriba -1 para cancelar el registro");
+            try {
+                capacidad = CheckInt.check(scanner.nextLine());
+                if (capacidad == -1) {
+                    System.out.println("Registro cancelado");
+                    return;
+                } else if (capacidad > 0) {
+                    checkCapacidad = true;
+                } else {
+                    System.out.println("La capacidad no puede ser negativa o cero.");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    
+        // Registro de la fecha de fabricación
+        String fechaFabricacion = "";
+        boolean checkFechaFabricacion = false;
+        while (!checkFechaFabricacion) {
+            System.out.println("=================================");
+            System.out.print("Fecha de fabricacion (AAAA-MM-DD): ");
+            System.out.println("\n=================================");
+            System.out.println("\nEscriba EXIT o exit para cancelar el registro");
+            try {
+                fechaFabricacion = CheckDate.check(scanner.nextLine());
+                if (fechaFabricacion.equalsIgnoreCase("exit")) {
+                    System.out.println("Registro cancelado");
+                    return;
+                } else {
+                    checkFechaFabricacion = true;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    
+        // Registro del estado
+        int estado_id = 0;
+        boolean checkEstado = false;
+        List<Integer> listCodesStatus = this.verEstadoInfoAccion.executeView(infoStatus);
+        while (!checkEstado) {
+            System.out.println("==================");
+            System.out.print("Estado del avion: ");
+            System.out.println("\n==================");
+            System.out.println("\n(Presione -1 para cancelar el registro)");            
+            try {
+                estado_id = CheckInt.check(scanner.nextLine());
+                if (estado_id == -1) {
+                    System.out.println("Registro cancelado");
+                    return;
+                } else {
+                    checkEstado = true;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    
+        // Registro del modelo
+        int modelo_id = 0;
+        boolean checkModelo = false;
+        List<Integer> listCodesModels = this.verModeloInfoAccion.executeView(infoModels);
+        while (!checkModelo) {
+            System.out.println("==================");
+            System.out.print("Modelo del avion: ");
+            System.out.println("\n==================");
+            System.out.println("Escriba -1 para cancelar el registro");
+            try {
+                modelo_id = CheckInt.check(scanner.nextLine());
+                if (modelo_id == -1) {
+                    System.out.println("Registro cancelado");
+                    return;
+                } else {
+                    checkModelo = true;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    
+        if (checkModelo && checkEstado) {
+            Avion newAvion = new Avion(placa, capacidad, fechaFabricacion, modelo_id, estado_id);
+            int insertedRows = this.recordAvionAccion.excuteRecord(newAvion);
+    
+            if (insertedRows > 0) {
+                System.out.println("Avión registrado exitosamente!");
+            } else {
+                System.out.println("Error al registrar el avión.");
+            }
+        }
+    }
+}    

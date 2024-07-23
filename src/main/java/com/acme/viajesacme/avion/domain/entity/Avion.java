@@ -11,89 +11,63 @@ package com.acme.viajesacme.avion.domain.entity;
 
 
 public class Avion {
-    private int placa;
+    private String placa;
     private int capacidad;
-    private int año_fabricacion;
-    private int mes_fabricacion;
-    private int dia_fabricacion;
-    private Estado estado;
-    private Aerolinea aerolinea;
-    private Modelo modelo;
-    private Fabricante fabricante;
+    private String fecha_fabricacion;
+    private int modelo_id;
+    private int estado_id;
+    public Avion() {
+    }
 
     
 
-    // Getters and Setters
-    public int getPlaca() {
-        return placa;
+    public Avion(String placa, int capacidad, String fecha_fabricacion, int modelo_id, int estado_id) {
+        this.placa = placa;
+        this.capacidad = capacidad;
+        this.fecha_fabricacion = fecha_fabricacion;
+        this.modelo_id = modelo_id;
+        this.estado_id = estado_id;
     }
 
-    public void setPlaca(int placa) {
-        this.placa = placa;
-    }
+
 
     public int getCapacidad() {
         return capacidad;
     }
-
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
     }
-
-    public int getAño_fabricacion() {
-        return año_fabricacion;
+    public String getFecha_fabricacion() {
+        return fecha_fabricacion;
+    }
+    public void setFecha_fabricacion(String fecha_fabricacion) {
+        this.fecha_fabricacion = fecha_fabricacion;
+    }
+    public int getModelo_id() {
+        return modelo_id;
+    }
+    public void setModelo_id(int modelo_id) {
+        this.modelo_id = modelo_id;
+    }
+    public int getEstado_id() {
+        return estado_id;
+    }
+    public void setEstado_id(int estado_id) {
+        this.estado_id = estado_id;
     }
 
-    public void setAño_fabricacion(int año_fabricacion) {
-        this.año_fabricacion = año_fabricacion;
+
+
+    public String getPlaca() {
+        return placa;
     }
 
-    public int getMes_fabricacion() {
-        return mes_fabricacion;
+
+
+    public void setPlaca(String placa) {
+        this.placa = placa;
     }
 
-    public void setMes_fabricacion(int mes_fabricacion) {
-        this.mes_fabricacion = mes_fabricacion;
-    }
-
-    public int getDia_fabricacion() {
-        return dia_fabricacion;
-    }
-
-    public void setDia_fabricacion(int dia_fabricacion) {
-        this.dia_fabricacion = dia_fabricacion;
-    }
-
-    public Estado getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-
-    public Aerolinea getAerolinea() {
-        return aerolinea;
-    }
-
-    public void setAerolinea(Aerolinea aerolinea) {
-        this.aerolinea = aerolinea;
-    }
-
-    public Modelo getModelo() {
-        return modelo;
-    }
-
-    public void setModelo(Modelo modelo) {
-        this.modelo = modelo;
-    }
-
-    public Fabricante getFabricante() {
-        return fabricante;
-    }
-
-    public void setFabricante(Fabricante fabricante) {
-        this.fabricante = fabricante;
-    }
+    
 }
 
