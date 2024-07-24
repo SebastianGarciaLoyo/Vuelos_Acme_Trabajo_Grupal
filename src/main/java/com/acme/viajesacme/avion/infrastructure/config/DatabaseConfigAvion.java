@@ -18,7 +18,8 @@ public class DatabaseConfigAvion {
     // Definiendo las credenciales de acceso a la base de datos
     private static final String URL = "jdbc:mysql://root:QEQTbxsgNWQduPAZzPdvqPbRKfYFFhZC@viaduct.proxy.rlwy.net:26806/railway";
     private static final String USER = "root";
-    private static final String PASSWORD = "QEQTbxsgNWQduPAZzPdvqPbRKfYFFhZC";
+    private static final String PASSWORD = "GlobalFlight";
+    
     
     // Declarando método para conección a la base de datos
     public static Connection getConnection() throws SQLException {

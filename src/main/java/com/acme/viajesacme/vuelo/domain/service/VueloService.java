@@ -4,10 +4,12 @@
  */
 package com.acme.viajesacme.vuelo.domain.service;
 
+import com.acme.viajesacme.vuelo.domain.entity.Vuelo;
+
 /**
  *
  * @author camper
  */
 public interface VueloService {
-    
+    void createVuelo(Vuelo vuelo);
 }

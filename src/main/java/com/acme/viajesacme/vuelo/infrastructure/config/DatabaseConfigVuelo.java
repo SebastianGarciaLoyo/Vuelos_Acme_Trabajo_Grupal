@@ -20,6 +20,7 @@ public class DatabaseConfigVuelo {
     private static final String USER = "root";
     private static final String PASSWORD = "QEQTbxsgNWQduPAZzPdvqPbRKfYFFhZC";
     
+    
     // Declarando método para conección a la base de datos
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
