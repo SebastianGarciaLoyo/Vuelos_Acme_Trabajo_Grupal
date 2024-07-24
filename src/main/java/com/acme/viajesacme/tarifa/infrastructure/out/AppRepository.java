@@ -8,6 +8,6 @@ package com.acme.viajesacme.tarifa.infrastructure.out;
  *
  * @author camper
  */
-public class TarifaConsoleWriter {
+public class AppRepository {
     
 }

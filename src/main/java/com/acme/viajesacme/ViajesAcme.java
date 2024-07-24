@@ -1,7 +1,5 @@
 package com.acme.viajesacme;
 
-import java.util.Scanner;
-
 import com.acme.viajesacme.aeropuerto.application.CreateAeropuertoUseCase;
 import com.acme.viajesacme.aeropuerto.domain.service.AeropuertoService;
 import com.acme.viajesacme.aeropuerto.infrastructure.in.AeropuertoController;
@@ -30,6 +28,7 @@ import com.acme.viajesacme.vuelo.application.CreateVueloUseCase;
 import com.acme.viajesacme.vuelo.domain.service.VueloService;
 import com.acme.viajesacme.vuelo.infrastructure.in.VueloController;
 import com.acme.viajesacme.vuelo.infrastructure.out.VueloRepository;
+import java.util.Scanner;
 
 public class ViajesAcme {
 

@@ -4,10 +4,11 @@
  */
 package com.acme.viajesacme.revision.infrastructure.in;
 
-import java.util.Scanner;
 
+import java.util.Scanner;
 import com.acme.viajesacme.revision.application.CreateRevisionUseCase;
 import com.acme.viajesacme.revision.domain.entity.Revision;
+
 
 /**
  *

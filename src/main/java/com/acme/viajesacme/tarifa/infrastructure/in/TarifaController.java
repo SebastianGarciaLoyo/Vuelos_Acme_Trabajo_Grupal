@@ -8,6 +8,6 @@ package com.acme.viajesacme.tarifa.infrastructure.in;
  *
  * @author camper
  */
-public class TarifaConsoleReader {
+public class TarifaController {
     
 }
