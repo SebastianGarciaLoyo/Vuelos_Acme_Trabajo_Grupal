@@ -10,6 +10,7 @@ import com.acme.viajesacme.persona.domain.exceptions.ErrLstEmpty;
 import com.acme.viajesacme.persona.domain.exceptions.ErrCredLoginUser;
 import com.acme.viajesacme.persona.domain.exceptions.ErrCountIntentos;
 import java.text.MessageFormat;
+import java.util.List;
 import java.util.ArrayList;
 
 
@@ -22,6 +23,7 @@ public class ValidarCredenciales {
     private boolean checkLogin;
     private String email;
     private String password;
+    private String rolUser;
     
     
     // Definiendo los constructores de la clase
@@ -29,8 +31,14 @@ public class ValidarCredenciales {
         
     }
     
-    public ValidarCredenciales(String email, String password) {
-        this.checkLogin = validarLogin(email, password);
+    public String ValidarCredenciales(String email, String password) {
+        ArrayList<Object> lstResValidarLogin = new ArrayList<>();
+        lstResValidarLogin = validarLogin(email, password);
+        
+        this.checkLogin = (boolean) lstResValidarLogin.get(0);
+        this.rolUser = (String) lstResValidarLogin.get(1);
+        
+        return (String) lstResValidarLogin.get(1);
     }
     
     
@@ -62,10 +70,19 @@ public class ValidarCredenciales {
     }
     
     
+    // Definiendo los getter y setter de "rolUser"
+    public String getRolUser() {
+        return rolUser;
+    }
+    public void setRolUser(String rolUser) {
+        this.rolUser = rolUser;
+    }
+    
+    
     
     
     // DEFINIENDO LAS FUNCIONES NECESARIAS
-    private static boolean validarLogin(String email, String password) {
+    private ArrayList<Object> validarLogin(String email, String password) {
         // Definiendo las instancias necesarias
         ValidarCredenciales validarCrendenciales = new ValidarCredenciales();
         validarCrendenciales.setEmail(email);
@@ -74,8 +91,7 @@ public class ValidarCredenciales {
         
         // Verificando la validez del inicio de sesión
         try {
-            if(checkLogin(validarCrendenciales)) { return true; } 
-            else { return false; }
+            return checkLogin(validarCrendenciales);
             
         } catch(Exception e) {
             System.out.println(
@@ -84,15 +100,21 @@ public class ValidarCredenciales {
                     e.getMessage()
             ));
             
-            return false;
+            return new ArrayList<>(List.of(true));
         }
     }
     
     
     
-    private static boolean checkLogin(ValidarCredenciales validarCredenciales) {        
+    private ArrayList<Object> checkLogin(ValidarCredenciales validarCredenciales) {        
+        // Declarando las variables de la función
+        boolean stateLogIn = false;
+        String rolUser = "";
+        
+        
         // Definiendo las instancias necesarias
-        AppRepository appRespository = new AppRepository();
+        AppRepository appRepository = new AppRepository();
+        ArrayList<Object> lstResultFunction = new ArrayList<>();
         ArrayList<String> lstInfoUser = new ArrayList<>();
         ArrayList<String> lstResInfoUser = new ArrayList<>();
         
@@ -104,7 +126,7 @@ public class ValidarCredenciales {
         
         // Verificar si el inicio de sesión puede continuar
         try {
-            lstResInfoUser = appRespository.findClientById(lstInfoUser);
+            lstResInfoUser = appRepository.findClientById(lstInfoUser);
 
             if(lstResInfoUser.size() == 0) {
                 throw new ErrLstEmpty();
@@ -113,7 +135,9 @@ public class ValidarCredenciales {
                 // Validando la existencia del usuario                
                 if(lstInfoUser.get(0).equals(lstResInfoUser.get(1)) && lstInfoUser.get(1).equals(lstResInfoUser.get(2))) {
                     validarCredenciales.setCheckLogin(true);
-                    // Aquí llamar a la clase de gestión de roles de usuario
+                    validarCredenciales.setRolUser(lstResInfoUser.get(3));
+                    stateLogIn = true;
+                    rolUser = lstResInfoUser.get(3);
 
                 } else {
                     throw new ErrCredLoginUser();
@@ -143,10 +167,13 @@ public class ValidarCredenciales {
                 )
             );
             System.exit(1);
-            return false;
 
         }  //Fin bloque principal try-catch
         
-        return true;
+        // Retornando los valores necesarios en un ArrayList
+        lstResultFunction.add(stateLogIn);
+        lstResultFunction.add(rolUser);
+        
+        return lstResultFunction;
     }  //Fin función "checkLogin"
 }  //Fin clase "validarCredenciales"

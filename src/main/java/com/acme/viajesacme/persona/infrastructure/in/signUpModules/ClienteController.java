@@ -41,6 +41,7 @@ public class ClienteController {
     
     
     // Definiendo los atributos necesarios
+    private boolean checkEstadoSignUp;
     private String resFinalString;
     private ClienteUseCase registroUsuario;
     private ArrayList<Object> lstInfoUser = new ArrayList<>();
@@ -74,6 +75,15 @@ public class ClienteController {
     }
     public void setResFinalString(String resFinalString) {
         this.resFinalString = resFinalString;
+    }
+    
+    
+    // Declarando los getter y setter del atributo "checkEstadoSignUp"
+    public boolean getCheckEstadoSignUp() {
+        return checkEstadoSignUp;
+    }
+    public void setCheckEstadoSignUp(boolean checkEstadoSignUp) {
+        this.checkEstadoSignUp = checkEstadoSignUp;
     }
     
     
@@ -120,6 +130,7 @@ public class ClienteController {
         
         
         // Almacenando la información guardada a la base de datos
+        this.checkEstadoSignUp = true;
         AppRepository.crearCliente(clienteController.getLstInfoUser());
     }
     

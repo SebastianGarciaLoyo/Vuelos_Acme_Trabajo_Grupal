@@ -7,13 +7,11 @@ package com.acme.viajesacme.persona.infrastructure.in.loginModules;
 // Importando las clases y paquetes necesarios
 import com.acme.viajesacme.persona.infrastructure.in.signUpModules.ValidarEmail;
 import com.acme.viajesacme.persona.infrastructure.in.signUpModules.ValidarPassword;
-import com.acme.viajesacme.persona.infrastructure.out.AppRepository;
 import com.acme.viajesacme.persona.domain.exceptions.ErrCountIntentos;
 import com.acme.viajesacme.persona.domain.exceptions.ErrWrongLogin;
 import com.acme.viajesacme.persona.infrastructure.in.loginModules.ValidarCredenciales;
 import java.util.Scanner;
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 
 
@@ -78,7 +76,7 @@ public class LoginController {
     
     
     // DECLARANDO LAS FUNCIONES NECESARIAS
-    public static void initLogin() {
+    public static String initLogin() {
         // Definiendo las variables necesarias
         int countErr = 0;
         Scanner sc = new Scanner(System.in);
@@ -195,10 +193,11 @@ public class LoginController {
         
         
         // Validando la existencia de las credenciales
-        ValidarCredenciales validarCredenciales = new ValidarCredenciales(
+        ValidarCredenciales validador = new ValidarCredenciales();
+        
+        return validador.ValidarCredenciales(
             loginController.getEmailLogin(), loginController.getPasswordLogin()
         );
-        
         
     }  //Fin función initLogin
 }  //Fin clase LoginController
