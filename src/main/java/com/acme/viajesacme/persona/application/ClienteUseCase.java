@@ -7,6 +7,7 @@ package com.acme.viajesacme.persona.application;
 // Importando las clases y paquetes necesarios
 import com.acme.viajesacme.persona.domain.entity.Cliente;
 import com.acme.viajesacme.persona.domain.service.ClienteService;
+import java.util.ArrayList;
 
 
 /**
@@ -24,7 +25,7 @@ public class ClienteUseCase {
     
     
     // Definiendo el método a ejecutar
-    public void execute(Cliente cliente) {
+    public void execute(ArrayList<Object> cliente) {
         clienteService.crearCliente(cliente);
     }
 }

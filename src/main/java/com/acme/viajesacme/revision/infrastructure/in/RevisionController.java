@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.acme.viajesacme.persona.infrastructure.persistence;
+package com.acme.viajesacme.revision.infrastructure.in;
 
 /**
  *
  * @author camper
  */
-public class AppRepository {
+public class RevisionController {
     
 }

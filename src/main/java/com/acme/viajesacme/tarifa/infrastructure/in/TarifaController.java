@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.acme.viajesacme.revision.infrastructure.out;
+package com.acme.viajesacme.tarifa.infrastructure.in;
 
 /**
  *
  * @author camper
  */
-public class RevisionConsoleWriter {
+public class TarifaController {
     
 }

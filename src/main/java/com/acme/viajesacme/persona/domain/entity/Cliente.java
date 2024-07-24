@@ -13,7 +13,9 @@ public class Cliente {
     private Long id;
     private String nombre;
     private String email;
+    private String contrasenia;
     private String telefono;
+    private String rol;
     private Long numId;
     private String tipoId;
     private String tipoSangreRH;
@@ -52,12 +54,30 @@ public class Cliente {
     }
     
     
+    // Definiendo los getter y setter de "contrasenia"
+    public String getContrasenia() {
+        return contrasenia;
+    }
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
+    }
+    
+    
     // Definiendo los getter y setter de "telefono"
     public String getTelefono() {
         return telefono;
     }
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+    
+    
+    // Definiendo los getter y setter de "rol"
+    public String getRol() {
+        return rol;
+    }
+    public void setRol(String rol) {
+        this.rol = rol;
     }
     
     
